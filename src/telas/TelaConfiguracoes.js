@@ -12,6 +12,7 @@ import {
 import { cores, espacamentos, estilosComuns } from '../configuracoes/estilos';
 import { showDebugMenu, DEBUG_CONFIG } from '../configuracoes/debug';
 import { limparTodosDados, obterEstatisticas } from '../dados/bancoDados';
+import { executarDemonstracao } from '../dados/exemplos';
 
 const TelaConfiguracoes = ({ navigation }) => {
   const [debugAtivo, setDebugAtivo] = useState(DEBUG_CONFIG.VERBOSE_LOGS);
@@ -93,6 +94,19 @@ const TelaConfiguracoes = ({ navigation }) => {
             onPress={showDebugMenu}
           >
             <Text style={estilosComuns.textoBotao}>Menu de Debug</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            style={[estilosComuns.botaoPrimario, { marginTop: espacamentos.sm, backgroundColor: cores.info }]}
+            onPress={async () => {
+              const resultado = await executarDemonstracao();
+              Alert.alert(
+                resultado.sucesso ? 'Sucesso!' : 'Erro',
+                resultado.mensagem
+              );
+            }}
+          >
+            <Text style={estilosComuns.textoBotao}>Executar Demonstração</Text>
           </TouchableOpacity>
         </View>
       )}

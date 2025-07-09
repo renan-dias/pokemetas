@@ -182,6 +182,37 @@ export const mensagensGerais = {
 
 // 🎲 Funções Utilitárias para Mensagens
 
+// Todas as mensagens em um objeto centralizado
+const todasMensagens = {
+  telaInicial: mensagensTelaInicial,
+  novaMeta: mensagensNovaMeta,
+  pokedex: mensagensPokedex,
+  nascimento: mensagensNascimento,
+  gerais: mensagensGerais,
+};
+
+// Função principal para obter mensagens
+export const obterMensagem = (chave, secao = null) => {
+  try {
+    if (secao) {
+      // Busca mensagem específica em uma seção
+      return todasMensagens[secao][chave] || `Mensagem '${chave}' não encontrada na seção '${secao}'`;
+    }
+    
+    // Busca em todas as seções
+    for (const nomeSecao in todasMensagens) {
+      if (todasMensagens[nomeSecao][chave]) {
+        return todasMensagens[nomeSecao][chave];
+      }
+    }
+    
+    return `Mensagem '${chave}' não encontrada`;
+  } catch (erro) {
+    console.warn('Erro ao obter mensagem:', erro);
+    return 'Mensagem não disponível';
+  }
+};
+
 // Função para pegar mensagem aleatória de uma lista
 export const obterMensagemAleatoria = (listaMensagens) => {
   if (!Array.isArray(listaMensagens) || listaMensagens.length === 0) {
