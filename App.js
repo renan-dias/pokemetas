@@ -3,39 +3,64 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { StatusBar } from 'expo-status-bar';
 
-import HomeScreen from './src/screens/HomeScreen';
-import AddGoalScreen from './src/screens/AddGoalScreen';
+// Importando nossas telas personalizadas
+import TelaInicial from './src/telas/TelaInicial';
+import TelaNovaMeta from './src/telas/TelaNovaMeta';
+import TelaPokedex from './src/telas/TelaPokedex';
+import TelaConfiguracoes from './src/telas/TelaConfiguracoes';
 
-import { setupDatabase } from './src/db/database';
+// Importando configuração do banco de dados
+import { configurarBancoDados } from './src/dados/bancoDados';
 
-const Stack = createNativeStackNavigator();
+// Criando navegador para trocar entre telas
+const Navegador = createNativeStackNavigator();
 
 export default function App() {
-  // Inicializa o banco de dados quando o app abre
+  // Configura banco quando app inicializa
   useEffect(() => {
-    setupDatabase();
+    configurarBancoDados();
   }, []);
 
   return (
     <NavigationContainer>
-      <Stack.Navigator
+      {/* Configurações gerais do cabeçalho */}
+      <Navegador.Navigator
         screenOptions={{
-          headerStyle: { backgroundColor: '#1F2937' }, // bg-gray-800
-          headerTintColor: '#FFFFFF',
-          headerTitleStyle: { fontWeight: 'bold' },
+          headerStyle: { backgroundColor: '#4F46E5' }, // Fundo roxo
+          headerTintColor: '#FFFFFF',                   // Texto branco
+          headerTitleStyle: { fontWeight: 'bold' },     // Texto negrito
         }}
       >
-        <Stack.Screen
-          name="Home"
-          component={HomeScreen}
-          options={{ title: 'Pixel Pet Timer' }}
+        {/* Tela principal - onde ficam os ovos */}
+        <Navegador.Screen
+          name="Inicial"
+          component={TelaInicial}
+          options={{ title: '🥚 Chocadeira de Pets' }}
         />
-        <Stack.Screen
-          name="AddGoal"
-          component={AddGoalScreen}
-          options={{ title: 'Adicionar Nova Meta' }}
+        
+        {/* Tela para criar nova meta */}
+        <Navegador.Screen
+          name="NovaMeta"
+          component={TelaNovaMeta}
+          options={{ title: '⏰ Nova Meta' }}
         />
-      </Stack.Navigator>
+        
+        {/* Tela tipo Pokédex */}
+        <Navegador.Screen
+          name="Pokedex"
+          component={TelaPokedex}
+          options={{ title: '📖 Minha Coleção' }}
+        />
+        
+        {/* Tela de configurações */}
+        <Navegador.Screen
+          name="Configuracoes"
+          component={TelaConfiguracoes}
+          options={{ title: '⚙️ Configurações' }}
+        />
+      </Navegador.Navigator>
+      
+      {/* Barra de status em cor clara */}
       <StatusBar style="light" />
     </NavigationContainer>
   );

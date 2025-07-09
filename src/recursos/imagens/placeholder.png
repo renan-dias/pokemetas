@@ -1,0 +1,9 @@
+// Este é um arquivo placeholder que simula uma imagem PNG
+// Em um projeto real, este seria um arquivo de imagem real
+
+module.exports = {
+  uri: 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8/5+hHgAHggJ/PchI7wAAAABJRU5ErkJggg==',
+  width: 128,
+  height: 128,
+  // Este é apenas um exemplo - substitua por imagens reais
+};
